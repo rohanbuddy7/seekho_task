@@ -7,11 +7,9 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import com.tribe7.seekho_task.ui.home.HomeScreen
+import com.tribe7.seekho_task.ui.nav.AppNavHost
 import com.tribe7.seekho_task.ui.theme.Seekho_taskTheme
 
 class MainActivity : ComponentActivity() {
@@ -21,7 +19,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             Seekho_taskTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    HomeScreen({}, Modifier.padding(innerPadding))
+                    AppNavHost()
                 }
             }
         }

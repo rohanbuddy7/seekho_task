@@ -14,7 +14,7 @@ import androidx.compose.ui.Modifier
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun DetailScreen(onBack: () -> Unit) {
+fun DetailScreen(id: Int, onBack: () -> Unit, modifier: Modifier) {
     Scaffold(
         topBar = {
             TopAppBar(
@@ -27,6 +27,6 @@ fun DetailScreen(onBack: () -> Unit) {
             )
         }
     ) { paddingValues ->
-        Text(modifier = Modifier.padding(paddingValues = paddingValues), text = "Detail page")
+        Text(modifier = Modifier.padding(paddingValues = paddingValues), text = "Detail page $id")
     }
 }

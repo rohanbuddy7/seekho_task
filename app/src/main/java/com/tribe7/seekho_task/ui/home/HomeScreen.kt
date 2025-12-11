@@ -2,6 +2,7 @@ package com.tribe7.seekho_task.ui.home
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -11,7 +12,7 @@ import androidx.compose.ui.Modifier
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HomeScreen(onBack: () -> Unit, modifier: Modifier) {
+fun HomeScreen(onNavigate: (String) -> Unit ,onBack: () -> Unit, modifier: Modifier) {
     Scaffold(
         topBar = {
             TopAppBar(
@@ -19,15 +20,26 @@ fun HomeScreen(onBack: () -> Unit, modifier: Modifier) {
             )
         }
     ) { paddingValues ->
-        AnimeList(Modifier.padding(paddingValues = paddingValues))
+        AnimeList(
+            modifier = Modifier.padding(paddingValues = paddingValues),
+            onNavigate = onNavigate
+        )
     }
 }
 
 @Composable
-fun AnimeList(modifier: Modifier) {
+fun AnimeList(
+    modifier: Modifier,
+    onNavigate: (String) -> Unit
+) {
     LazyColumn(modifier = modifier) {
-        item(10){
+        items(10){ index->
             Text("")
+            Button(
+                onClick = { onNavigate("detail/$index") }
+            ) {
+
+            }
         }
     }
 }
