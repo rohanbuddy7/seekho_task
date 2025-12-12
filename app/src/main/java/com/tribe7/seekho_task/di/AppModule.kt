@@ -3,6 +3,7 @@ package com.tribe7.seekho_task.di
 import android.content.Context
 import com.tribe7.seekho_task.data.api.ApiService
 import com.tribe7.seekho_task.data.local.dao.AnimeDao
+import com.tribe7.seekho_task.data.local.dao.AnimeDetailDao
 import com.tribe7.seekho_task.data.local.db.AppDatabase
 import com.tribe7.seekho_task.data.network.NetworkModule
 import com.tribe7.seekho_task.data.repo.AnimeRepo
@@ -23,6 +24,10 @@ class AppModule {
 
     @Provides
     @Singleton
+    fun provideAnimeDetailDao(app: AppDatabase): AnimeDetailDao = app.animeDetailDao()
+
+    @Provides
+    @Singleton
     fun provideDatabase(@ApplicationContext context: Context): AppDatabase =
         AppDatabase.getInstance(context = context)
 
@@ -32,6 +37,7 @@ class AppModule {
 
     @Provides
     @Singleton
-    fun provideAnimeRepo(apiService: ApiService, dao: AnimeDao): AnimeRepo = AnimeRepo(apiService, dao)
+    fun provideAnimeRepo(apiService: ApiService, dao: AnimeDao, animeDetailDao: AnimeDetailDao): AnimeRepo =
+        AnimeRepo(apiService, dao, animeDetailDao)
 
 }

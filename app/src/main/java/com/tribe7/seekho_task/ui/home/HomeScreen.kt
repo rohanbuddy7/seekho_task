@@ -69,11 +69,17 @@ fun HomeScreen(
             is NetworkResult.Success<*> -> {
                 val items = (state as NetworkResult.Success<List<Anime>>).data
                 Log.d("TAG", "HomeScreen: $items")
-                AnimeList(
-                    modifier = modifier,
-                    onNavigate = {},
-                    anime = items
-                )
+                if(items.isEmpty()){
+
+                } else {
+                    AnimeList(
+                        modifier = modifier,
+                        onNavigate = { id ->
+                            onNavigate("detail/$id")
+                        },
+                        anime = items
+                    )
+                }
             }
         }
         }
@@ -83,7 +89,7 @@ fun HomeScreen(
 @Composable
 fun AnimeList(
     modifier: Modifier,
-    onNavigate: (String) -> Unit,
+    onNavigate: (Int) -> Unit,
     anime: List<Anime>
 ) {
     LazyColumn(
@@ -93,7 +99,9 @@ fun AnimeList(
             items = anime,
             key = { it.id }
         ) { anime ->
-            AnimeRow(anime, {  })
+            AnimeRow(anime) { id ->
+                onNavigate(id)
+            }
         }
     }
 }
