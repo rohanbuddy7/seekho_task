@@ -11,7 +11,9 @@ import androidx.compose.ui.Modifier
 import com.tribe7.seekho_task.ui.home.HomeScreen
 import com.tribe7.seekho_task.ui.nav.AppNavHost
 import com.tribe7.seekho_task.ui.theme.Seekho_taskTheme
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -5,12 +5,15 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.tribe7.seekho_task.data.repo.AnimeRepo
 import com.tribe7.seekho_task.utils.NetworkResult
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import java.lang.Exception
+import javax.inject.Inject
 
-class HomeViewModel(var repo: AnimeRepo): ViewModel() {
+@HiltViewModel
+class HomeViewModel @Inject constructor(var repo: AnimeRepo): ViewModel() {
     private val _state = MutableStateFlow<NetworkResult<List<Anime>>>(NetworkResult.Loading())
     val state: StateFlow<NetworkResult<List<Anime>>> = _state
 
