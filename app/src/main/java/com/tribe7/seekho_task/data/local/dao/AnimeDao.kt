@@ -28,4 +28,7 @@ interface AnimeDao {
     @Query("DELETE FROM anime")
     suspend fun clearAll()
 
+    @Query("SELECT * FROM anime")
+    suspend fun observeAllAnime(): Flow<List<AnimeEntity>>
+
 }
