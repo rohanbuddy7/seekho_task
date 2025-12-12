@@ -24,6 +24,7 @@ class DetailViewModel @Inject constructor(var repo: AnimeRepo): ViewModel() {
                 repo.updateAnimeDetail(id)
             }catch (e: Exception){
                 e.printStackTrace()
+                _state.value = NetworkResult.Error("Something went wrong. Please try again later")
             }
         }
     }

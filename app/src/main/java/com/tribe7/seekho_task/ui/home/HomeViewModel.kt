@@ -29,6 +29,7 @@ class HomeViewModel @Inject constructor(var repo: AnimeRepo): ViewModel() {
                 repo.updateAnimeList()
             }catch (e: Exception){
                 e.printStackTrace()
+                _state.value = NetworkResult.Error("Something went wrong. Please try again later")
             }
         }
     }
