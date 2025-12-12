@@ -25,6 +25,7 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
@@ -70,7 +71,12 @@ fun HomeScreen(
                 val items = (state as NetworkResult.Success<List<Anime>>).data
                 Log.d("TAG", "HomeScreen: $items")
                 if(items.isEmpty()){
-
+                    Box(
+                        modifier = Modifier.fillMaxSize(),
+                        contentAlignment = Alignment.Center
+                    ){
+                        Text("No anime found", style = MaterialTheme.typography.bodyLarge)
+                    }
                 } else {
                     AnimeList(
                         modifier = modifier,
