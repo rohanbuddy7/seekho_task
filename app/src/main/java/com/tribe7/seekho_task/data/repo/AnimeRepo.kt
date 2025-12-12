@@ -1,9 +1,12 @@
 package com.tribe7.seekho_task.data.repo
 
+import Anime
 import com.tribe7.seekho_task.data.api.ApiService
 import com.tribe7.seekho_task.data.local.dao.AnimeDao
 import com.tribe7.seekho_task.data.local.entity.AnimeEntity
+import com.tribe7.seekho_task.data.local.entity.toAnime
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 
 class AnimeRepo(
     var apiService: ApiService,
@@ -24,8 +27,10 @@ class AnimeRepo(
         dao.insertAll(animeList)
     }
 
-    suspend fun observeAnime(): Flow<List<AnimeEntity>> {
-        return dao.observeAllAnime()
+    suspend fun observeAnime(): Flow<List<Anime>> {
+        return dao.observeAllAnime().map { entities ->
+            entities.map { it.toAnime() }
+        }
     }
 
 }

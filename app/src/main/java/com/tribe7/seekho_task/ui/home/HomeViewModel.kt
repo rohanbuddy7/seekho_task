@@ -1,0 +1,41 @@
+package com.tribe7.seekho_task.ui.home
+
+import Anime
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.tribe7.seekho_task.data.repo.AnimeRepo
+import com.tribe7.seekho_task.utils.NetworkResult
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.launch
+import java.lang.Exception
+
+class HomeViewModel(var repo: AnimeRepo): ViewModel() {
+    private val _state = MutableStateFlow<NetworkResult<List<Anime>>>(NetworkResult.Loading())
+    val state: StateFlow<NetworkResult<List<Anime>>> = _state
+
+    init {
+        updateAnime()
+        getAnime()
+    }
+
+    fun updateAnime(){
+        viewModelScope.launch {
+            try{
+                repo.updateAnimeList()
+            }catch (e: Exception){
+                e.printStackTrace()
+            }
+        }
+    }
+
+    fun getAnime(){
+        viewModelScope.launch {
+            repo.observeAnime().collect { list ->
+                _state.value = NetworkResult.Success(list)
+            }
+        }
+    }
+
+}
+

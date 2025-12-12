@@ -1,5 +1,6 @@
 package com.tribe7.seekho_task.data.local.entity
 
+import Anime
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
@@ -11,4 +12,12 @@ data class AnimeEntity(
     val rating: Double?,
     val posterUrl: String?,
     val lastRefreshedMillis: Long = System.currentTimeMillis()
+)
+
+fun AnimeEntity.toAnime() = Anime(
+    id = id,
+    title = title,
+    episodes = episodes,
+    rating = rating,
+    posterUrl = posterUrl
 )
