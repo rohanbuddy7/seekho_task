@@ -1,5 +1,6 @@
 package com.tribe7.seekho_task.di
 
+import android.content.Context
 import com.tribe7.seekho_task.data.api.ApiService
 import com.tribe7.seekho_task.data.local.dao.AnimeDao
 import com.tribe7.seekho_task.data.local.db.AppDatabase
@@ -22,7 +23,7 @@ class AppModule {
 
     @Provides
     @Singleton
-    fun provideDatabase(@ApplicationContext context: ApplicationContext): AppDatabase =
+    fun provideDatabase(@ApplicationContext context: Context): AppDatabase =
         AppDatabase.getInstance(context = context)
 
     @Provides

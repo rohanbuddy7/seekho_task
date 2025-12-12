@@ -29,6 +29,6 @@ interface AnimeDao {
     suspend fun clearAll()
 
     @Query("SELECT * FROM anime")
-    suspend fun observeAllAnime(): Flow<List<AnimeEntity>>
+    fun observeAllAnime(): Flow<List<AnimeEntity>>
 
 }

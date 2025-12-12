@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.tribe7.seekho_task.data.repo.AnimeRepo
 import com.tribe7.seekho_task.utils.NetworkResult
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -18,12 +19,12 @@ class HomeViewModel @Inject constructor(var repo: AnimeRepo): ViewModel() {
     val state: StateFlow<NetworkResult<List<Anime>>> = _state
 
     init {
-        updateAnime()
         getAnime()
+        updateAnime()
     }
 
     fun updateAnime(){
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             try{
                 repo.updateAnimeList()
             }catch (e: Exception){
@@ -33,7 +34,7 @@ class HomeViewModel @Inject constructor(var repo: AnimeRepo): ViewModel() {
     }
 
     fun getAnime(){
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             repo.observeAnime().collect { list ->
                 _state.value = NetworkResult.Success(list)
             }
