@@ -61,11 +61,14 @@ fun HomeScreen(
         ) {
             when (state) {
             is NetworkResult.Error<*> -> {
-                val message = (state as NetworkResult.Error<*>).message
-                Text(
-                    text = message,
-                    modifier = Modifier.padding(paddingValues)
-                )
+                val message = (state as NetworkResult.Error).message
+                Box(
+                    modifier = Modifier
+                        .fillMaxSize(),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Text(message)
+                }
             }
             is NetworkResult.Loading<*> -> {
                 Box(

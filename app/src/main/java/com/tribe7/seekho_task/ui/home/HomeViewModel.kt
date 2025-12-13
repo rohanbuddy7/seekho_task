@@ -29,7 +29,6 @@ class HomeViewModel @Inject constructor(var repo: AnimeRepo): ViewModel() {
                 repo.updateAnimeList()
             }catch (e: Exception){
                 e.printStackTrace()
-                _state.value = NetworkResult.Error("Something went wrong. Please try again later")
             }
         }
     }
@@ -37,7 +36,11 @@ class HomeViewModel @Inject constructor(var repo: AnimeRepo): ViewModel() {
     fun getAnime(){
         viewModelScope.launch(Dispatchers.IO) {
             repo.observeAnime().collect { list ->
-                _state.value = NetworkResult.Success(list)
+                if (list.isEmpty()) {
+                    _state.value = NetworkResult.Error("No cached data found")
+                } else {
+                    _state.value = NetworkResult.Success(list)
+                }
             }
         }
     }
